@@ -1,0 +1,19 @@
+{
+  "name": "clockit",
+  "version": "0.0.1",
+  "description": "Clockit CLI",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brnbp/clockit.git"
+  },
+  "author": "Bruno Pereira <me@brnbp.com> (http://github.com/brnbp)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brnbp/clockit/issues"
+  },
+  "homepage": "https://github.com/brnbp/clockit#readme"
+}
