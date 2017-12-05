@@ -1,5 +1,6 @@
 
-Clockit CLI
+# Clockit CLI
+> Clockit is an CLI tool to tracking work hours
 
 ## Commands
 ````
@@ -26,4 +27,4 @@ Clockit CLI
         - use -y/-f for force clockin without ask confirmation
     - overwrite any clockin already setted for the day
     - adds notes to day
-    - export/import data (for backup/restore)
+    - export/import data (for backup/restore purpose)
