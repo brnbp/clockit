@@ -5,7 +5,7 @@
   "main": "clkit",
   "scripts": {
     "clkit": "bin/clkit",
-    "lint": "node_modules/.bin/eslint src/** bin/clkit ",    
+    "lint": "node_modules/.bin/eslint src/** bin/clkit ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/brnbp/clockit#readme",
   "dependencies": {
+    "chalk": "^2.3.0",
+    "cli-table2": "^0.2.0",
+    "dotenv": "^4.0.0",
     "knex": "^0.14.2",
     "moment": "^2.19.3",
     "sqlite3": "^3.1.13",
