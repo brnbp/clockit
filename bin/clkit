@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+const yargs = require('yargs');
+const recordsDB = require('../src/db/records');
+const Clockit = require('../src/clockit');
+
+yargs
+  .command('init', 'start service', () => {
+    recordsDB.setup(isReady => {
+      if (isReady) return console.log('service already started');
+      console.log('service started');
+    })
+  })
+  .command('in', 'check in at morning', () => {
+    Clockit.start();
+  })
+  .command('lin', 'check in lunch', () => {
+    Clockit.lunchIn();
+  })
+  .command('lout', 'check out lunch', () => {
+    Clockit.lunchOut();
+  })
+  .command('out', 'check out at afternoon', () => {
+    Clockit.end();
+  })
+  .command('status', 'status for day', () => {
+    Clockit.status();
+  })
+  .argv;
