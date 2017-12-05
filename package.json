@@ -2,8 +2,10 @@
   "name": "clockit",
   "version": "0.0.1",
   "description": "Clockit CLI",
-  "main": "app.js",
+  "main": "clkit",
   "scripts": {
+    "clkit": "bin/clkit",
+    "lint": "node_modules/.bin/eslint src/** bin/clkit ",    
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,7 +13,7 @@
     "url": "git+https://github.com/brnbp/clockit.git"
   },
   "author": "Bruno Pereira <me@brnbp.com> (http://github.com/brnbp)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/brnbp/clockit/issues"
   },
@@ -21,5 +23,10 @@
     "moment": "^2.19.3",
     "sqlite3": "^3.1.13",
     "yargs": "^10.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
   }
 }
