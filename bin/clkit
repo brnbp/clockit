@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
+require('dotenv').config();
 const yargs = require('yargs');
 const recordsDB = require('../src/db/records');
-const Clockit = require('../src/clockit');
+const Clockit = require('../src/clockit/clockit');
 
 yargs
   .command('init', 'start service', () => {

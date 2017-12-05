@@ -1,32 +1,38 @@
 const moment = require('moment');
-const records = require('../src/db/records');
+const records = require('../../src/db/records');
 const msgs = require('./messages');
 const transformer = require('./transformer');
+const time = require('./time');
+const draw = require('./draw');
 
 const first = () => records.first({ date: currentDate() }, record => {
   if (!record) return console.log(msgs.clock.noRecordsFound)
-  console.log(transformer(record))
+  draw(transformer(record));
 });
 
 const print = (message) => {
   console.log(message);
   console.log('------------------------------------');
-  first()
+  first();
 }
-  
+
+const WORK_PERIOD_IN_MINUTES = process.env.WORK_HOURS_PER_DAY * 60;
+const canGoHomeAt = (workPeriodMinutes) => console.log(`you can go home at: ${moment().add(workPeriodMinutes, 'minutes').format('HH:mm')}`);
 const errNotClokedYet = () => print(msgs.clock.errNotClokedYet);
 const currentDate = () => moment().format('Y-M-DD');
-const currentHour = () => moment().format('HH:mm')
+const currentHour = () => moment().format('HH:mm');
 
 const start = () => {
   const record = {
     date: currentDate(),
     start_day: currentHour()
   };
-
   records.insert(
     record,
-    () => print(msgs.clock.in.success),
+    () => {
+      print(msgs.clock.in.success); 
+      canGoHomeAt(WORK_PERIOD_IN_MINUTES);
+    },
     () => print(msgs.clock.in.error)
   );
 };
@@ -38,6 +44,7 @@ const lunchIn = () => {
   records.first(
     { date },
     record => {
+      record = record[0];
       if (record.start_lunch) {
         return print(msgs.clock.lunch.in.error);
       }
@@ -51,14 +58,19 @@ const lunchOut = () => {
   const date = currentDate();
   const endLunch = currentHour();
 
-  records.first({ date }, 
+  records.first({ date },
     record => {
+      record = record[0];
       if (record.end_lunch) {
         return print(msgs.clock.lunch.out.error);
       }
       if (!record.start_lunch) {
         return print(msgs.clock.lunch.out.rule);
       }
+
+      const totalWorkBeforeLunch = time.getDiffPeriod(record.start_day, record.start_lunch);
+      canGoHomeAt(WORK_PERIOD_IN_MINUTES - totalWorkBeforeLunch);
+
       records.update({ end_lunch: endLunch }, { date }, () => print(msgs.clock.lunch.out.success));
     },
     errNotClokedYet
@@ -71,16 +83,32 @@ const end = () => {
 
   records.first({ date }, 
     record => {
+      record = record[0];
       if (record.end_day !== null) {
         return print(msgs.clock.out.error);
       }
-      records.update({ end_day: endDay }, { date }, () => print(msgs.clock.out.success));
+
+      if (record.start_lunch && !record.end_lunch) {
+        return print(msgs.clock.out.rule);
+      }
+
+      record.end_day = endDay;
+
+      const data = {
+        end_day: endDay,
+        total_time: time.getTotalWork(record)
+      };
+
+      records.update(data, { date }, () => print(msgs.clock.out.success));
     },
     errNotClokedYet
   );
 };
 
-const status = first
+const status = () => records.retrieve(records => {
+  if (!records) return console.log(msgs.clock.noRecordsFound)
+  draw(transformer(records));
+});
 
 module.exports = {
   start,

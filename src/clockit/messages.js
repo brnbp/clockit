@@ -18,6 +18,7 @@ module.exports = {
     out: {
       success: 'check out done 👋😎',
       error: 'check out already done',
+      rule: 'you should clock out for lunch before clock out for the day',
     },
     errNotClokedYet: 'you might have not clockin for work yet 🤔',
     noRecordsFound: 'No records found! 📭',
