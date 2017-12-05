@@ -2,6 +2,11 @@
 # Clockit CLI
 > Clockit is an CLI tool to tracking work hours
 
+
+![screenshot](https://github.com/brnbp/clockit/blob/master/github/example.gif)
+
+
+
 - [Installation](#installing)
 - [Configuration](#configuration)
 - [Commands](#commands)
