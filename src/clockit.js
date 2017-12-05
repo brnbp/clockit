@@ -1,14 +1,20 @@
 const moment = require('moment');
 const records = require('../src/db/records');
+const msgs = require('./messages');
+const transformer = require('./transformer');
+
+const first = () => records.first({ date: currentDate() }, record => {
+  if (!record) return console.log(msgs.clock.noRecordsFound)
+  console.log(transformer(record))
+});
 
 const print = (message) => {
   console.log(message);
   console.log('------------------------------------');
-  records.first({ date: currentDate() }, record => console.log(record || 'No records found! 📭'));
+  first()
 }
   
-const errNotClokedYet = () => print('you might have not clockin for work yet 🤔');
-
+const errNotClokedYet = () => print(msgs.clock.errNotClokedYet);
 const currentDate = () => moment().format('Y-M-DD');
 const currentHour = () => moment().format('HH:mm')
 
@@ -20,8 +26,8 @@ const start = () => {
 
   records.insert(
     record,
-    () => print('check in at morning done 👩‍💻'),
-    () => print('check in at morning already done')
+    () => print(msgs.clock.in.success),
+    () => print(msgs.clock.in.error)
   );
 };
 
@@ -33,9 +39,9 @@ const lunchIn = () => {
     { date },
     record => {
       if (record.start_lunch) {
-        return print('check in for lunch already done');
+        return print(msgs.clock.lunch.in.error);
       }
-      records.update({ start_lunch: startLunch }, { date }, () => print('check in for lunch done 🍝'))
+      records.update({ start_lunch: startLunch }, { date }, () => print(msgs.clock.lunch.in.success))
     },
     errNotClokedYet
   )
@@ -48,12 +54,12 @@ const lunchOut = () => {
   records.first({ date }, 
     record => {
       if (record.end_lunch) {
-        return print('check out for lunch already done');
+        return print(msgs.clock.lunch.out.error);
       }
       if (!record.start_lunch) {
-        return print('you should clockin for lunch before clockout');
+        return print(msgs.clock.lunch.out.rule);
       }
-      records.update({ end_lunch: endLunch }, { date }, () => print('check out for lunch done 🍽'));
+      records.update({ end_lunch: endLunch }, { date }, () => print(msgs.clock.lunch.out.success));
     },
     errNotClokedYet
   );
@@ -66,17 +72,15 @@ const end = () => {
   records.first({ date }, 
     record => {
       if (record.end_day !== null) {
-        return print('check out already done');
+        return print(msgs.clock.out.error);
       }
-      records.update({ end_day: endDay }, { date }, () => print('check out done 👋😎'));
+      records.update({ end_day: endDay }, { date }, () => print(msgs.clock.out.success));
     },
     errNotClokedYet
   );
 };
 
-const status = () => {
-  records.first({ date: currentDate() }, record => console.log(record || 'No records found! 📭'))
-}
+const status = first
 
 module.exports = {
   start,
