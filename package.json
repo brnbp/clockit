@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/brnbp/clockit/issues"
   },
-  "homepage": "https://github.com/brnbp/clockit#readme"
+  "homepage": "https://github.com/brnbp/clockit#readme",
+  "dependencies": {
+    "knex": "^0.14.2",
+    "moment": "^2.19.3",
+    "sqlite3": "^3.1.13",
+    "yargs": "^10.0.3"
+  }
 }
