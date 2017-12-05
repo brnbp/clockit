@@ -24,6 +24,9 @@ yargs
   .command('out', 'check out at afternoon', () => {
     Clockit.end();
   })
+  .command('clear', 'clear all clocks from current day', () => {
+    Clockit.clearToday();
+  })
   .command('status', 'status for day', () => {
     Clockit.status();
   })

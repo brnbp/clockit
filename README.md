@@ -42,6 +42,9 @@
     $ clkit out     stops work for current day
 
     $ clkit status  summary of work for current day
+
+    $ clkit clear   clear all clocks from current day
+
     $ clkit help    summary of commands
      
 ````

@@ -27,17 +27,20 @@ const setup = (callback) =>
   });
 
 const insert = (data, success, err) => db.table(TABLE_NAME).insert(data).then(success).catch(err);
-  
+
 const first = (filter, success, err) => db.table(TABLE_NAME).limit(1).where(filter).then(success).catch(err);
 
 const retrieve = (success, err) => db.table(TABLE_NAME).select().orderBy('date', 'DESC').limit(5).then(success).catch(err);
   
 const update = (data, filter, success) => db.table(TABLE_NAME).update(data).where(filter).then(success);
-  
+
+const remove = (filter, success, err) => db.table(TABLE_NAME).delete().where(filter).then(success).catch(err);
+
 module.exports = {
   setup,
   insert,
   first,
   update,
   retrieve,
+  remove,
 }

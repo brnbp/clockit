@@ -110,10 +110,16 @@ const status = () => records.retrieve(records => {
   draw(transformer(records));
 });
 
+const clearToday = () => {
+  const date = currentDate();
+  records.remove({ date }, () => console.log('All records for today are clear now'), () => {});
+}
+
 module.exports = {
   start,
   lunchIn,
   lunchOut,
   end,
   status,
+  clearToday
 }
