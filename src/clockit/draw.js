@@ -1,7 +1,7 @@
-const cliTable = require('cli-table2');
+const CliTable = require('cli-table2');
 const chalk = require('chalk');
 
-const table = new cliTable({
+const table = new CliTable({
   head: [
     chalk.yellow('Date'),
     chalk.yellow('In'),
@@ -12,9 +12,9 @@ const table = new cliTable({
   ],
   style: {
     head: [],
-    border: []
+    border: [],
   },
-  colWidths: [13, 12, 12, 12, 12, 12]
+  colWidths: [13, 12, 12, 12, 12, 12],
 });
 
 module.exports = (days) => {
@@ -24,9 +24,8 @@ module.exports = (days) => {
     chalk.blue(day.start_lunch),
     chalk.blue(day.end_lunch),
     chalk.blue(day.end_day),
-    chalk.blue(day.total_time)
+    chalk.blue(day.total_time),
   ]));
-  
 
   console.log(table.toString());
-}
+};

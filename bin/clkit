@@ -7,10 +7,10 @@ const Clockit = require('../src/clockit/clockit');
 
 yargs
   .command('init', 'start service', () => {
-    recordsDB.setup(isReady => {
+    recordsDB.setup((isReady) => {
       if (isReady) return console.log('service already started');
-      console.log('service started');
-    })
+      return console.log('service started');
+    });
   })
   .command('in', 'check in at morning', () => {
     Clockit.start();

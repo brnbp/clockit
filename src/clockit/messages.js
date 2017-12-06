@@ -6,8 +6,8 @@ module.exports = {
     },
     lunch: {
       in: {
-          success: 'check in for lunch done 🍝',
-          error: 'check in for lunch already done',    
+        success: 'check in for lunch done 🍝',
+        error: 'check in for lunch already done',
       },
       out: {
         success: 'check out for lunch done 🍽',
