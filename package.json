@@ -6,7 +6,7 @@
   "scripts": {
     "clkit": "bin/clkit",
     "lint": "node_modules/.bin/eslint src/** bin/clkit ",
-    "test": "NODE_ENV=test mocha test/unit/**/*.js"
+    "test": "npm run lint && NODE_ENV=test mocha test/unit/**/*.js"
   },
   "repository": {
     "type": "git",
