@@ -6,7 +6,7 @@
   "scripts": {
     "clkit": "bin/clkit",
     "lint": "node_modules/.bin/eslint src/** bin/clkit ",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test mocha test/unit/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,8 @@
     "yargs": "^10.0.3"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
     "eslint": "^4.12.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0"
