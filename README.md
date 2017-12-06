@@ -6,34 +6,37 @@
 ![screenshot](https://github.com/brnbp/clockit/blob/master/github/example.gif)
 
 
-
-- [Installation](#installing)
 - [Configuration](#configuration)
 - [Commands](#commands)
 - [Road Map](#roadmap)
 
 
-### Installing
-```
- $ git clone git@github.com:brnbp/clockit.git
-```
-
 
 ### Configuration:
- #### 1. Rename .env.example file to .env and fulfill the following things:
+ #### 1. Installing
+  ```
+   $ git clone git@github.com:brnbp/clockit.git
+  ```
+
+ #### 2. Rename .env.example file to .env and fulfill the following things:
     - WORK_HOURS_PER_DAY    = quantity of hours worked per day
 
 
- #### 2. Install dependencies:
+ #### 3. Install dependencies:
   ````
     $ yarn 
     or
     $ npm install
   ````
 
- #### 3. Make sure that the file called `robot` is executable:
+ #### 4. Make sure that the file called `robot` is executable:
   ````
    $ chmod +x ./bin/clkit
+  ````
+
+ #### 5. Run tests
+  ````
+   $ npm test
   ````
 
 
