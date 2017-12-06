@@ -2,7 +2,7 @@ const moment = require('moment');
 
 const format = date => moment(date).format('DD/MM/YYYY');
 
-module.exports = data => 
+const transform = data => 
   data.map(day => ({
     date: format(day.date),
     start_day: day.start_day || '--:--',
@@ -11,3 +11,8 @@ module.exports = data =>
     end_day: day.end_day || '--:--',
     total_time: day.total_time || '--:--'
   }));
+
+module.exports = {
+  transform,
+  format,
+}

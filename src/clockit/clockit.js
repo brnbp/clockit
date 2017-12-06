@@ -1,13 +1,13 @@
 const moment = require('moment');
 const records = require('../../src/db/records');
 const msgs = require('./messages');
-const transformer = require('./transformer');
+const { transform } = require('./transformer');
 const time = require('./time');
 const draw = require('./draw');
 
 const first = () => records.first({ date: currentDate() }, record => {
   if (!record) return console.log(msgs.clock.noRecordsFound)
-  draw(transformer(record));
+  draw(transform(record));
 });
 
 const print = (message) => {
@@ -107,7 +107,7 @@ const end = () => {
 
 const status = () => records.retrieve(records => {
   if (!records) return console.log(msgs.clock.noRecordsFound)
-  draw(transformer(records));
+  draw(transform(records));
 });
 
 const clearToday = () => {

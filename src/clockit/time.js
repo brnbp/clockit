@@ -8,10 +8,7 @@ const getTotalWork = (record) => {
 
   return `${formatTime(getHours(totalWorkTime))}:${formatTime(getMinutes(totalWorkTime))}`;
 }
-  
-const getHours = time => Math.floor(time / 60);
-const getMinutes = time => time % 60;
-  
+
 const getDiffPeriod = (start, end) => {
   if (!start) {
     return 0;
@@ -22,15 +19,16 @@ const getDiffPeriod = (start, end) => {
 
   return endLunch.diff(startLunch, 'minutes');
 }
-  
-const formatTime = time => {
-  if (time < 10) {
-    return '0' + time;
-  }
-  return time;
-}
+
+const getHours = time => Math.floor(time / 60);
+const getMinutes = time => time % 60;
+
+const formatTime = time => time < 10 ? '0' + time : time
 
 module.exports = {
   getDiffPeriod,
   getTotalWork,
+  formatTime,
+  getHours,
+  getMinutes,
 }
