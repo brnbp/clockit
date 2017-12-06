@@ -1,4 +1,6 @@
 
+[![CircleCI](https://circleci.com/gh/brnbp/clockit/tree/master.svg?style=svg)](https://circleci.com/gh/brnbp/clockit/tree/master)
+
 # Clockit CLI
 > Clockit is an CLI tool to tracking work hours
 
