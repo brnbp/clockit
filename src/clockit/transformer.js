@@ -9,7 +9,7 @@ const transform = data =>
     start_lunch: day.start_lunch || '--:--',
     end_lunch: day.end_lunch || '--:--',
     end_day: day.end_day || '--:--',
-    total_time: day.total_time || '--:--'
+    total_time: day.total_time || '--:--',
   }));
 
 module.exports = {

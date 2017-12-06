@@ -34,7 +34,7 @@ const start = () => {
       print(msgs.clock.in.success);
       canGoHomeAt(WORK_PERIOD_IN_MINUTES);
     },
-    () => print(msgs.clock.in.error)
+    () => print(msgs.clock.in.error),
   );
 };
 
@@ -51,10 +51,10 @@ const lunchIn = () => {
       records.update(
         { start_lunch: startLunch },
         { date },
-        () => print(msgs.clock.lunch.in.success)
+        () => print(msgs.clock.lunch.in.success),
       );
     },
-    errNotClokedYet
+    errNotClokedYet,
   );
 };
 
@@ -77,7 +77,7 @@ const lunchOut = () => {
 
       records.update({ end_lunch: endLunch }, { date }, () => print(msgs.clock.lunch.out.success));
     },
-    errNotClokedYet
+    errNotClokedYet,
   );
 };
 
@@ -105,7 +105,7 @@ const end = () => {
 
       records.update(data, { date }, () => print(msgs.clock.out.success));
     },
-    errNotClokedYet
+    errNotClokedYet,
   );
 };
 
