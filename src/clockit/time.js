@@ -30,6 +30,8 @@ const getTotalWork = (record) => {
   return `${formatTime(getHours(totalWorkTime))}:${formatTime(getMinutes(totalWorkTime))}`;
 };
 
+const workUntil = workPeriodMinutes => moment().add(workPeriodMinutes, 'minutes').format('HH:mm')
+
 module.exports = {
   getDiffPeriod,
   getTotalWork,
@@ -38,4 +40,5 @@ module.exports = {
   getMinutes,
   currentDate,
   currentTime,
+  workUntil,
 };

@@ -6,7 +6,7 @@ const time = require('./time');
 const draw = require('./draw');
 
 const WORK_PERIOD_IN_MINUTES = process.env.WORK_HOURS_PER_DAY * 60;
-const canGoHomeAt = workPeriodMinutes => console.log(`you can go home at: ${moment().add(workPeriodMinutes, 'minutes').format('HH:mm')}`);
+const canGoHomeAt = workPeriod => console.log(`you can go home at: ${time.workUntil(workPeriod)}`);
 
 const first = (date) => {
   date = date || time.currentDate();
@@ -104,9 +104,12 @@ const status = () => records.retrieve((records) => {
   return draw(transform(records));
 });
 
-const clearToday = () => {
-  const date = time.currentDate();
-  records.remove({ date }, () => console.log('All records for today are clear now'), () => {});
+const clearToday = (date) => {
+  records.remove(
+    { date: date || time.currentDate() }, 
+    () => console.log('All records for today are clear now'),
+    () => {}
+  );
 };
 
 module.exports = {
