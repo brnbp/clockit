@@ -1,5 +1,9 @@
 const moment = require('moment');
 
+const currentDate = () => moment().format('Y-M-DD');
+
+const currentTime = () => moment().format('HH:mm');
+
 const getDiffPeriod = (start, end) => {
   if (!start) {
     return 0;
@@ -32,4 +36,6 @@ module.exports = {
   formatTime,
   getHours,
   getMinutes,
+  currentDate,
+  currentTime,
 };
