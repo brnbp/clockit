@@ -1,5 +1,9 @@
 const moment = require('moment');
 
+const currentDate = () => moment().format('Y-M-DD');
+
+const currentTime = () => moment().format('HH:mm');
+
 const getDiffPeriod = (start, end) => {
   if (!start) {
     return 0;
@@ -26,10 +30,15 @@ const getTotalWork = (record) => {
   return `${formatTime(getHours(totalWorkTime))}:${formatTime(getMinutes(totalWorkTime))}`;
 };
 
+const workUntil = workPeriodMinutes => moment().add(workPeriodMinutes, 'minutes').format('HH:mm')
+
 module.exports = {
   getDiffPeriod,
   getTotalWork,
   formatTime,
   getHours,
   getMinutes,
+  currentDate,
+  currentTime,
+  workUntil,
 };

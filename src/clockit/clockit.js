@@ -6,94 +6,85 @@ const time = require('./time');
 const draw = require('./draw');
 
 const WORK_PERIOD_IN_MINUTES = process.env.WORK_HOURS_PER_DAY * 60;
-const canGoHomeAt = workPeriodMinutes => console.log(`you can go home at: ${moment().add(workPeriodMinutes, 'minutes').format('HH:mm')}`);
-const currentDate = () => moment().format('Y-M-DD');
-const currentHour = () => moment().format('HH:mm');
+const canGoHomeAt = workPeriod => console.log(`you can go home at: ${time.workUntil(workPeriod)}`);
 
-const first = () => records.first({ date: currentDate() }, (record) => {
-  if (!record) return console.log(msgs.clock.noRecordsFound);
-  draw(transform(record));
-});
+const first = (date) => {
+  date = date || time.currentDate();
+  records.first({ date }, (record) => {
+    if (!record) return console.log(msgs.clock.noRecordsFound);
+    draw(transform(record));
+  });
+}
 
-const print = (message) => {
+const print = (date, message) => {
   console.log(message);
   console.log('------------------------------------');
-  first();
+  first(date);
 };
 
-const errNotClokedYet = () => print(msgs.clock.errNotClokedYet);
+const errNotClokedYet = (date) => print(date, msgs.clock.errNotClokedYet);
 
-const start = () => {
+const start = (date, time) => {
   const record = {
-    date: currentDate(),
-    start_day: currentHour(),
+    date,
+    start_day: time,
   };
   records.insert(
     record,
     () => {
-      print(msgs.clock.in.success);
+      print(date, msgs.clock.in.success);
       canGoHomeAt(WORK_PERIOD_IN_MINUTES);
     },
-    () => print(msgs.clock.in.error),
+    () => print(date, msgs.clock.in.error),
   );
 };
 
-const lunchIn = () => {
-  const date = currentDate();
-  const startLunch = currentHour();
-
+const lunchIn = (date, startLunch) => {
   records.first(
     { date },
     (record) => {
       if (record[0].start_lunch) {
-        return print(msgs.clock.lunch.in.error);
+        return print(date, msgs.clock.lunch.in.error);
       }
       records.update(
         { start_lunch: startLunch },
         { date },
-        () => print(msgs.clock.lunch.in.success),
+        () => print(date, msgs.clock.lunch.in.success),
       );
     },
-    errNotClokedYet,
+    () => errNotClokedYet(date),
   );
 };
 
-const lunchOut = () => {
-  const date = currentDate();
-  const endLunch = currentHour();
-
+const lunchOut = (date, endLunch) =>
   records.first({ date },
     (record) => {
       [record] = record;
       if (record.end_lunch) {
-        return print(msgs.clock.lunch.out.error);
+        return print(date, msgs.clock.lunch.out.error);
       }
       if (!record.start_lunch) {
-        return print(msgs.clock.lunch.out.rule);
+        return print(date, msgs.clock.lunch.out.rule);
       }
 
       const totalWorkBeforeLunch = time.getDiffPeriod(record.start_day, record.start_lunch);
       canGoHomeAt(WORK_PERIOD_IN_MINUTES - totalWorkBeforeLunch);
 
-      records.update({ end_lunch: endLunch }, { date }, () => print(msgs.clock.lunch.out.success));
+      records.update({ end_lunch: endLunch }, { date }, () => print(date, msgs.clock.lunch.out.success));
     },
-    errNotClokedYet,
+    () => errNotClokedYet(date),
   );
-};
 
-const end = () => {
-  const date = currentDate();
-  const endDay = currentHour();
-
+const end = (date, endDay) =>
   records.first({ date },
     (record) => {
       [record] = record;
       if (record.end_day !== null) {
-        return print(msgs.clock.out.error);
+        return print(date, msgs.clock.out.error);
       }
 
       if (record.start_lunch && !record.end_lunch) {
-        return print(msgs.clock.out.rule);
+        return print(date, msgs.clock.out.rule);
       }
 
       record.end_day = endDay;
@@ -103,20 +94,22 @@ const end = () => {
         total_time: time.getTotalWork(record),
       };
 
-      records.update(data, { date }, () => print(msgs.clock.out.success));
+      records.update(data, { date }, () => print(date, msgs.clock.out.success));
     },
-    errNotClokedYet,
+    () => errNotClokedYet(date),
   );
-};
 
 const status = () => records.retrieve((records) => {
   if (!records) return console.log(msgs.clock.noRecordsFound);
   return draw(transform(records));
 });
 
-const clearToday = () => {
-  const date = currentDate();
-  records.remove({ date }, () => console.log('All records for today are clear now'), () => {});
+const clearToday = (date) => {
+  records.remove(
+    { date: date || time.currentDate() }, 
+    () => console.log('All records for today are clear now'),
+    () => {}
+  );
 };
 
 module.exports = {

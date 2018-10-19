@@ -4,6 +4,10 @@ require('dotenv').config();
 const yargs = require('yargs');
 const recordsDB = require('../src/db/records');
 const Clockit = require('../src/clockit/clockit');
+const time = require('../src/clockit/time');
+
+const getTime = (hour = null) => hour || time.currentTime();
+const getDate = (date = null) => date || time.currentDate();
 
 yargs
   .command('init', 'start service', () => {
@@ -13,16 +17,28 @@ yargs
     });
   })
   .command('in', 'check in at morning', () => {
-    Clockit.start();
+    const date = getDate(yargs.argv.date);
+    const time = getTime(yargs.argv.time);
+
+    Clockit.start(date, time);
   })
   .command('lin', 'check in lunch', () => {
-    Clockit.lunchIn();
+    const date = getDate(yargs.argv.date);
+    const time = getTime(yargs.argv.time);
+
+    Clockit.lunchIn(date, time);
   })
   .command('lout', 'check out lunch', () => {
-    Clockit.lunchOut();
+    const date = getDate(yargs.argv.date);
+    const time = getTime(yargs.argv.time);
+
+    Clockit.lunchOut(date, time);
   })
   .command('out', 'check out at afternoon', () => {
-    Clockit.end();
+    const date = getDate(yargs.argv.date);
+    const time = getTime(yargs.argv.time);
+
+    Clockit.end(date, time);
   })
   .command('clear', 'clear all clocks from current day', () => {
     Clockit.clearToday();

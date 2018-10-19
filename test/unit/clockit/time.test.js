@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { getDiffPeriod, getTotalWork, formatTime, getHours, getMinutes} = require('../../../src/clockit/time');
+const { getDiffPeriod, getTotalWork, formatTime, getHours, getMinutes } = require('../../../src/clockit/time');
 
 describe('Time: getHours', () => {
   it('should get 5 hours from 5 hours and 20 minutes (320 minutes)', () => {
