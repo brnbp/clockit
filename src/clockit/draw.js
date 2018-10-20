@@ -1,14 +1,15 @@
 const CliTable = require('cli-table2');
 const chalk = require('chalk');
+const msgs = require('../lang/' + process.env.LANGUAGE);
 
 const table = new CliTable({
   head: [
-    chalk.yellow('Date'),
-    chalk.yellow('In'),
-    chalk.yellow('Lunch In'),
-    chalk.yellow('Lunch Out'),
-    chalk.yellow('Out'),
-    chalk.yellow('Total'),
+    chalk.yellow(msgs.table.date),
+    chalk.yellow(msgs.table.in),
+    chalk.yellow(msgs.table.lin),
+    chalk.yellow(msgs.table.lout),
+    chalk.yellow(msgs.table.out),
+    chalk.yellow(msgs.table.total),
   ],
   style: {
     head: [],
