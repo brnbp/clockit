@@ -19,7 +19,7 @@ yargs
   .command('in', 'check in at morning', () => {
     const date = getDate(yargs.argv.date);
     const time = getTime(yargs.argv.time);
-
+d
     Clockit.start(date, time);
   })
   .command('lin', 'check in lunch', () => {
