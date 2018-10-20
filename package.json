@@ -2,7 +2,10 @@
   "name": "clockit",
   "version": "0.0.2",
   "description": "Clockit CLI",
-  "main": "clkit",
+  "main": "bin/clkit",
+  "bin": {
+    "clkit": "bin/clkit"
+  },
   "scripts": {
     "clkit": "bin/clkit",
     "lint": "node_modules/.bin/eslint src/** bin/clkit ",
