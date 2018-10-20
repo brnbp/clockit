@@ -23,4 +23,12 @@ module.exports = {
     errNotClokedYet: 'you might have not clockin for work yet 🤔',
     noRecordsFound: 'No records found! 📭',
   },
+  table: {
+    date: 'Date',
+    in: 'In',
+    lin: 'Lunch In',
+    lout: 'Lunch Out',
+    out: 'Out',
+    total: 'Total',
+  },
 };
