@@ -1,6 +1,6 @@
 const moment = require('moment');
 const records = require('../../src/db/records');
-const msgs = require('./messages');
+const msgs = require('../lang/' + process.env.LANGUAGE);
 const { transform } = require('./transformer');
 const time = require('./time');
 const draw = require('./draw');
