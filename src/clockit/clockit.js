@@ -1,9 +1,10 @@
 const moment = require('moment');
 const records = require('../../src/db/records');
-const msgs = require('../lang/' + process.env.LANGUAGE);
 const { transform } = require('./transformer');
 const time = require('./time');
 const draw = require('./draw');
+
+const msgs = require(`../lang/${process.env.LANGUAGE}`);
 
 const WORK_PERIOD_IN_MINUTES = process.env.WORK_HOURS_PER_DAY * 60;
 const canGoHomeAt = workPeriodMinutes => console.log(`you can go home at: ${moment().add(workPeriodMinutes, 'minutes').format('HH:mm')}`);

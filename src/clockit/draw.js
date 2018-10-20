@@ -1,6 +1,7 @@
 const CliTable = require('cli-table2');
 const chalk = require('chalk');
-const msgs = require('../lang/' + process.env.LANGUAGE);
+
+const msgs = require(`../lang/${process.env.LANGUAGE}`);
 
 const table = new CliTable({
   head: [
