@@ -31,7 +31,7 @@
     $ npm install
   ````
 
- #### 4. Make sure that the file called `robot` is executable:
+ #### 4. Make sure that the file called `clockit` is executable:
   ````
    $ chmod +x ./bin/clkit
   ````
